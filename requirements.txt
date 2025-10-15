@@ -1,0 +1,7 @@
+# Updated Dependencies
+
+Updated package versions
+
+- Updated security patches
+- Improved compatibility
+- Added new packages
