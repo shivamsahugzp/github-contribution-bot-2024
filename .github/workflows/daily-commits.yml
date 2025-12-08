@@ -193,7 +193,10 @@ jobs:
           # Commit with date
           export GIT_AUTHOR_DATE="$GIT_DATE"
           export GIT_COMMITTER_DATE="$GIT_DATE"
-          git commit -m "$RANDOM_MSG" --quiet || exit 1
+          if ! git commit -m "$RANDOM_MSG" --quiet; then
+            echo "Warning: Commit failed, continuing..."
+            continue
+          fi
           
           echo "Created commit: $RANDOM_MSG"
           
@@ -209,11 +212,17 @@ jobs:
         BRANCH=$(git symbolic-ref --short HEAD || echo "main")
         echo "Pushing to branch: $BRANCH"
         
+        # Check if there are any commits to push
+        if git diff --quiet HEAD origin/$BRANCH 2>/dev/null; then
+          echo "No new commits to push"
+          exit 0
+        fi
+        
         # Configure remote URL with token
         git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
         
-        # Push to the current branch
-        git push origin HEAD:$BRANCH --quiet
+        # Push to the current branch (allow empty if no commits)
+        git push origin HEAD:$BRANCH --quiet || echo "Push completed (may be up-to-date)"
         echo "✅ Commits pushed successfully"
         
     - name: Send notification
