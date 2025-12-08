@@ -103,58 +103,58 @@ jobs:
               echo '    print(result)'
             } > "$FILENAME"
           elif [ "$EXT" = "js" ] || [ "$EXT" = "ts" ]; then
-            cat > "$FILENAME" << 'JSEOF'
-/**
- * Utility functions for data processing
- */
-
-export function formatData(data: any[]): any[] {
-  if (!data || !Array.isArray(data)) {
-    console.warn('Invalid data provided');
-    return [];
-  }
-  
-  return data.map(item => ({
-    ...item,
-    processed: true,
-    timestamp: new Date().toISOString()
-  }));
-}
-
-export function validateInput(input: string): boolean {
-  return input && input.trim().length > 0;
-}
-JSEOF
+            {
+              echo '/**'
+              echo ' * Utility functions for data processing'
+              echo ' */'
+              echo ''
+              echo 'export function formatData(data: any[]): any[] {'
+              echo '  if (!data || !Array.isArray(data)) {'
+              echo "    console.warn('Invalid data provided');"
+              echo '    return [];'
+              echo '  }'
+              echo '  '
+              echo '  return data.map(item => ({'
+              echo '    ...item,'
+              echo '    processed: true,'
+              echo '    timestamp: new Date().toISOString()'
+              echo '  }));'
+              echo '}'
+              echo ''
+              echo 'export function validateInput(input: string): boolean {'
+              echo '  return input && input.trim().length > 0;'
+              echo '}'
+            } > "$FILENAME"
           elif [ "$EXT" = "md" ]; then
-            cat > "$FILENAME" << 'MDEOF'
-# Documentation
-
-## Overview
-This module handles data processing and validation.
-
-## Usage
-```python
-from utils import process_data
-
-result = process_data({"key": "value"})
-```
-
-## Features
-- Data validation
-- Error handling
-- Logging support
-MDEOF
+            {
+              echo '# Documentation'
+              echo ''
+              echo '## Overview'
+              echo 'This module handles data processing and validation.'
+              echo ''
+              echo '## Usage'
+              echo '```python'
+              echo 'from utils import process_data'
+              echo ''
+              echo 'result = process_data({"key": "value"})'
+              echo '```'
+              echo ''
+              echo '## Features'
+              echo '- Data validation'
+              echo '- Error handling'
+              echo '- Logging support'
+            } > "$FILENAME"
           else
-            cat > "$FILENAME" << 'JSONEOF'
-{
-  "version": "1.0.0",
-  "settings": {
-    "enabled": true,
-    "timeout": 30,
-    "retries": 3
-  }
-}
-JSONEOF
+            {
+              echo '{'
+              echo '  "version": "1.0.0",'
+              echo '  "settings": {'
+              echo '    "enabled": true,'
+              echo '    "timeout": 30,'
+              echo '    "retries": 3'
+              echo '  }'
+              echo '}'
+            } > "$FILENAME"
           fi
           
           git add "$FILENAME"
