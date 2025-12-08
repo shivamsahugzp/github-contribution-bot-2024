@@ -30,7 +30,6 @@ jobs:
         git config --global user.name "Shivam Sahu"
         
     - name: Create human-like commits
-      shell: bash
       run: |
         echo "Creating natural commits for today..."
         
@@ -191,8 +190,10 @@ jobs:
           CURRENT_DATE=$(date -u +%Y-%m-%d)
           GIT_DATE="${CURRENT_DATE} ${HOUR_UTC}:${MIN}:00 +0000"
           
-          GIT_AUTHOR_DATE="$GIT_DATE" GIT_COMMITTER_DATE="$GIT_DATE" \
-          git commit -m "$RANDOM_MSG" --quiet
+          # Commit with date
+          export GIT_AUTHOR_DATE="$GIT_DATE"
+          export GIT_COMMITTER_DATE="$GIT_DATE"
+          git commit -m "$RANDOM_MSG" --quiet || exit 1
           
           echo "Created commit: $RANDOM_MSG"
           
