@@ -75,7 +75,7 @@ jobs:
           
           # Create realistic file content based on type
           if [ "$EXT" = "py" ]; then
-            cat > "$FILENAME" << 'PYTHON'
+            cat > "$FILENAME" << 'EOF_PYTHON'
 """
 Helper utility functions
 """
@@ -102,9 +102,9 @@ if __name__ == "__main__":
     test_data = {"key1": "value1", "key2": None}
     result = process_data(test_data)
     print(result)
-PYTHON
+EOF_PYTHON
           elif [ "$EXT" = "js" ] || [ "$EXT" = "ts" ]; then
-            cat > "$FILENAME" << 'JS'
+            cat > "$FILENAME" << 'EOF_JS'
 /**
  * Utility functions for data processing
  */
@@ -125,9 +125,9 @@ export function formatData(data: any[]): any[] {
 export function validateInput(input: string): boolean {
   return input && input.trim().length > 0;
 }
-JS
+EOF_JS
           elif [ "$EXT" = "md" ]; then
-            cat > "$FILENAME" << 'MD'
+            cat > "$FILENAME" << 'EOF_MD'
 # Documentation
 
 ## Overview
@@ -144,9 +144,9 @@ result = process_data({"key": "value"})
 - Data validation
 - Error handling
 - Logging support
-MD
+EOF_MD
           else
-            cat > "$FILENAME" << 'CONFIG'
+            cat > "$FILENAME" << 'EOF_CONFIG'
 {
   "version": "1.0.0",
   "settings": {
@@ -155,7 +155,7 @@ MD
     "retries": 3
   }
 }
-CONFIG
+EOF_CONFIG
           fi
           
           git add "$FILENAME"
