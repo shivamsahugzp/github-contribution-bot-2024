@@ -76,85 +76,77 @@ jobs:
           
           # Create realistic file content based on type
           if [ "$EXT" = "py" ]; then
-            {
-              echo '# Helper utility functions'
-              echo 'import logging'
-              echo 'from typing import Optional, Dict, Any'
-              echo ''
-              echo 'logger = logging.getLogger(__name__)'
-              echo ''
-              echo 'def process_data(data: Dict[str, Any]) -> Optional[Dict[str, Any]]:'
-              echo '    # Process and validate input data'
-              echo '    if not data:'
-              echo '        logger.warning("Empty data provided")'
-              echo '        return None'
-              echo '    '
-              echo '    try:'
-              echo '        # Process logic here'
-              echo '        result = {k: v for k, v in data.items() if v is not None}'
-              echo '        return result'
-              echo '    except Exception as e:'
-              echo '        logger.error(f"Error processing data: {e}")'
-              echo '        return None'
-              echo ''
-              echo 'if __name__ == "__main__":'
-              echo '    test_data = {"key1": "value1", "key2": None}'
-              echo '    result = process_data(test_data)'
-              echo '    print(result)'
-            } > "$FILENAME"
+            echo '# Helper utility functions' > "$FILENAME"
+            echo 'import logging' >> "$FILENAME"
+            echo 'from typing import Optional, Dict, Any' >> "$FILENAME"
+            echo '' >> "$FILENAME"
+            echo 'logger = logging.getLogger(__name__)' >> "$FILENAME"
+            echo '' >> "$FILENAME"
+            echo 'def process_data(data: Dict[str, Any]) -> Optional[Dict[str, Any]]:' >> "$FILENAME"
+            echo '    # Process and validate input data' >> "$FILENAME"
+            echo '    if not data:' >> "$FILENAME"
+            echo '        logger.warning("Empty data provided")' >> "$FILENAME"
+            echo '        return None' >> "$FILENAME"
+            echo '    ' >> "$FILENAME"
+            echo '    try:' >> "$FILENAME"
+            echo '        # Process logic here' >> "$FILENAME"
+            echo '        result = {k: v for k, v in data.items() if v is not None}' >> "$FILENAME"
+            echo '        return result' >> "$FILENAME"
+            echo '    except Exception as e:' >> "$FILENAME"
+            echo '        logger.error(f"Error processing data: {e}")' >> "$FILENAME"
+            echo '        return None' >> "$FILENAME"
+            echo '' >> "$FILENAME"
+            echo 'if __name__ == "__main__":' >> "$FILENAME"
+            echo '    test_data = {"key1": "value1", "key2": None}' >> "$FILENAME"
+            echo '    result = process_data(test_data)' >> "$FILENAME"
+            echo '    print(result)' >> "$FILENAME"
           elif [ "$EXT" = "js" ] || [ "$EXT" = "ts" ]; then
-            {
-              echo '/**'
-              echo ' * Utility functions for data processing'
-              echo ' */'
-              echo ''
-              echo 'export function formatData(data: any[]): any[] {'
-              echo '  if (!data || !Array.isArray(data)) {'
-              echo "    console.warn('Invalid data provided');"
-              echo '    return [];'
-              echo '  }'
-              echo '  '
-              echo '  return data.map(item => ({'
-              echo '    ...item,'
-              echo '    processed: true,'
-              echo '    timestamp: new Date().toISOString()'
-              echo '  }));'
-              echo '}'
-              echo ''
-              echo 'export function validateInput(input: string): boolean {'
-              echo '  return input && input.trim().length > 0;'
-              echo '}'
-            } > "$FILENAME"
+            echo '/**' > "$FILENAME"
+            echo ' * Utility functions for data processing' >> "$FILENAME"
+            echo ' */' >> "$FILENAME"
+            echo '' >> "$FILENAME"
+            echo 'export function formatData(data: any[]): any[] {' >> "$FILENAME"
+            echo '  if (!data || !Array.isArray(data)) {' >> "$FILENAME"
+            echo "    console.warn('Invalid data provided');" >> "$FILENAME"
+            echo '    return [];' >> "$FILENAME"
+            echo '  }' >> "$FILENAME"
+            echo '  ' >> "$FILENAME"
+            echo '  return data.map(item => ({' >> "$FILENAME"
+            echo '    ...item,' >> "$FILENAME"
+            echo '    processed: true,' >> "$FILENAME"
+            echo '    timestamp: new Date().toISOString()' >> "$FILENAME"
+            echo '  }));' >> "$FILENAME"
+            echo '}' >> "$FILENAME"
+            echo '' >> "$FILENAME"
+            echo 'export function validateInput(input: string): boolean {' >> "$FILENAME"
+            echo '  return input && input.trim().length > 0;' >> "$FILENAME"
+            echo '}' >> "$FILENAME"
           elif [ "$EXT" = "md" ]; then
-            {
-              echo '# Documentation'
-              echo ''
-              echo '## Overview'
-              echo 'This module handles data processing and validation.'
-              echo ''
-              echo '## Usage'
-              echo '```python'
-              echo 'from utils import process_data'
-              echo ''
-              echo 'result = process_data({"key": "value"})'
-              echo '```'
-              echo ''
-              echo '## Features'
-              echo '- Data validation'
-              echo '- Error handling'
-              echo '- Logging support'
-            } > "$FILENAME"
+            echo '# Documentation' > "$FILENAME"
+            echo '' >> "$FILENAME"
+            echo '## Overview' >> "$FILENAME"
+            echo 'This module handles data processing and validation.' >> "$FILENAME"
+            echo '' >> "$FILENAME"
+            echo '## Usage' >> "$FILENAME"
+            echo '```python' >> "$FILENAME"
+            echo 'from utils import process_data' >> "$FILENAME"
+            echo '' >> "$FILENAME"
+            echo 'result = process_data({"key": "value"})' >> "$FILENAME"
+            echo '```' >> "$FILENAME"
+            echo '' >> "$FILENAME"
+            echo '## Features' >> "$FILENAME"
+            echo '- Data validation' >> "$FILENAME"
+            echo '- Error handling' >> "$FILENAME"
+            echo '- Logging support' >> "$FILENAME"
           else
-            {
-              echo '{'
-              echo '  "version": "1.0.0",'
-              echo '  "settings": {'
-              echo '    "enabled": true,'
-              echo '    "timeout": 30,'
-              echo '    "retries": 3'
-              echo '  }'
-              echo '}'
-            } > "$FILENAME"
+            echo '{' > "$FILENAME"
+            echo '  "version": "1.0.0",' >> "$FILENAME"
+            echo '  "settings": {' >> "$FILENAME"
+            echo '    "enabled": true,' >> "$FILENAME"
+            echo '    "timeout": 30,' >> "$FILENAME"
+            echo '    "retries": 3' >> "$FILENAME"
+            echo '  }' >> "$FILENAME"
+            echo '}' >> "$FILENAME"
           fi
           
           git add "$FILENAME"
