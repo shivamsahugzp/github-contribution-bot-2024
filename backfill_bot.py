@@ -13,7 +13,8 @@ from datetime import timedelta
 class GitHubBackfillBot:
     def __init__(self):
         self.repo_path = "/Users/shivamsahu/Documents/Projects/github-contribution-bot"
-        self.github_token = "os.getenv("GITHUB_TOKEN", "")"
+        # GitHub token should be set via environment variable or config file
+        self.github_token = os.getenv("GITHUB_TOKEN", "")
         
     def generate_commit_content(self, date):
         """Generate realistic commit content for a specific date"""
